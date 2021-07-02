@@ -262,10 +262,10 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
     }
     
     func guestDidStop(_ virtualMachine: VZVirtualMachine) {
-        
+        document?.isRunning = false
     }
     
     func virtualMachine(_ virtualMachine: VZVirtualMachine, didStopWithError error: Error) {
-        
+        document?.isRunning = false
     }
 }
