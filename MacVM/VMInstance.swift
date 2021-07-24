@@ -122,7 +122,7 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
             let vm = VZVirtualMachine(configuration: configuration, queue: .main)
             vm.delegate = self
             
-            let installer = VZMacOSInstaller(virtualMachine: vm, restoreImage: image)
+            let installer = VZMacOSInstaller(virtualMachine: vm, restoringFromImageAt: image.url)
             installer.install { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
