@@ -234,13 +234,13 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
             NSLog("Storage Error: \(error)")
         }
 
-        let sound_config = VZVirtioSoundDeviceConfiguration()
-        let sink_config = VZVirtioSoundDeviceOutputStreamConfiguration()
-        sink_config.sink = VZHostAudioOutputStreamSink()
-        sound_config.streams.append(sink_config)
-        let source_config = VZVirtioSoundDeviceInputStreamConfiguration()
-        source_config.source = VZHostAudioInputStreamSource()
-        sound_config.streams.append(source_config)
+        let soundDevice = VZVirtioSoundDeviceConfiguration()
+        let outputStream = VZVirtioSoundDeviceOutputStreamConfiguration()
+        outputStream.sink = VZHostAudioOutputStreamSink()
+        soundDevice.streams.append(outputStream)
+        let inputStream = VZVirtioSoundDeviceInputStreamConfiguration()
+        inputStream.source = VZHostAudioInputStreamSource()
+        soundDevice.streams.append(inputStream)
 
         let configuration = VZVirtualMachineConfiguration()
         configuration.bootLoader = bootloader
@@ -265,7 +265,7 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
         configuration.keyboards = [keyboard]
         configuration.pointingDevices = [pointingDevice]
         configuration.storageDevices = storages
-        configuration.audioDevices = [sound_config]
+        configuration.audioDevices = [soundDevice]
         return configuration
     }
     
