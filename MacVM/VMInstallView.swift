@@ -24,6 +24,21 @@ struct VMInstallView: View {
     @State var skipInstallation = false
     @State var ipswURL: URL?
     
+    let availableMemoryOptions: [Int] = {
+        let baseUnit = 1024 * 1024 * 1024 // GB
+        let availableMemory = Int(ProcessInfo.processInfo.physicalMemory)
+        
+        var availableOptions: [Int] = []
+        var memorySize = 2
+        
+        while memorySize * baseUnit <= availableMemory {
+            availableOptions.append(memorySize)
+            memorySize += 2
+        }
+        
+        return availableOptions
+    }()
+    
     var body: some View {
         if let fileURL = fileURL {
             if let ipswURL = ipswURL {
@@ -82,12 +97,12 @@ struct VMInstallView: View {
             Form {
                 Section {
                     Picker("CPU Count", selection: $cpuCount) {
-                        ForEach(2...ProcessInfo.processInfo.processorCount, id: \.self) { count in
+                        ForEach(1...ProcessInfo.processInfo.processorCount, id: \.self) { count in
                             Text("\(count)")
                         }
                     }
                     Picker("Memory Size", selection: $memorySize) {
-                        ForEach([2, 4, 8, 12, 16], id: \.self) { size in
+                        ForEach(availableMemoryOptions, id: \.self) { size in
                             Text("\(size) GB")
                         }
                     }

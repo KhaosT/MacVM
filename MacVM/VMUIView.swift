@@ -20,5 +20,6 @@ struct VMUIView: NSViewRepresentable {
     
     func updateNSView(_ nsView: VZVirtualMachineView, context: Context) {
         nsView.virtualMachine = virtualMachine
+        nsView.window?.makeFirstResponder(nsView)
     }
 }
