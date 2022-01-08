@@ -5,6 +5,7 @@
 //  Created by Khaos Tian on 6/28/21.
 //
 
+import AVFoundation
 import Foundation
 import SwiftUI
 import Virtualization
@@ -238,6 +239,8 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
         let outputStream = VZVirtioSoundDeviceOutputStreamConfiguration()
         outputStream.sink = VZHostAudioOutputStreamSink()
         soundDevice.streams.append(outputStream)
+
+        AVCaptureDevice.requestAccess(for:  .audio) { _ in }
         let inputStream = VZVirtioSoundDeviceInputStreamConfiguration()
         inputStream.source = VZHostAudioInputStreamSource()
         soundDevice.streams.append(inputStream)
