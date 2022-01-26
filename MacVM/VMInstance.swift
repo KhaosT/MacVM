@@ -210,14 +210,19 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
         let networkDevice = VZVirtioNetworkDeviceConfiguration()
         networkDevice.attachment = VZNATNetworkDeviceAttachment()
         
+        let heightOfToolbar = 98.0
         let graphics = VZMacGraphicsDeviceConfiguration()
-        graphics.displays = [
+        graphics.displays = NSScreen.screens.count > 0 ? NSScreen.screens.map {
             VZMacGraphicsDisplayConfiguration(
-                widthInPixels: 2560,
-                heightInPixels: 1600,
-                pixelsPerInch: 220
+                widthInPixels: Int($0.frame.size.width * $0.backingScaleFactor),
+                heightInPixels: Int(($0.frame.size.height - heightOfToolbar) * $0.backingScaleFactor),
+                pixelsPerInch: Int($0.backingScaleFactor * 100)
             )
-        ]
+        } : [VZMacGraphicsDisplayConfiguration(
+            widthInPixels: 2560,
+            heightInPixels: 1600,
+            pixelsPerInch: 220
+        )]
         
         let keyboard = VZUSBKeyboardConfiguration()
         let pointingDevice = VZUSBScreenCoordinatePointingDeviceConfiguration()
