@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01B37758281D772700BB9111 /* VMControlOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B37757281D772700BB9111 /* VMControlOverlay.swift */; };
 		01B3775A281F06F900BB9111 /* VMSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B37759281F06F900BB9111 /* VMSettingsView.swift */; };
 		CC4E3630268AD4E400AA5EA1 /* MacVMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4E362F268AD4E400AA5EA1 /* MacVMApp.swift */; };
 		CC4E3634268AD4E500AA5EA1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC4E3633268AD4E500AA5EA1 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01B37757281D772700BB9111 /* VMControlOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMControlOverlay.swift; sourceTree = "<group>"; };
 		01B37759281F06F900BB9111 /* VMSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMSettingsView.swift; sourceTree = "<group>"; };
 		CC4E362C268AD4E400AA5EA1 /* MacVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC4E362F268AD4E400AA5EA1 /* MacVMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacVMApp.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				CC4E362F268AD4E400AA5EA1 /* MacVMApp.swift */,
 				CC4E3641268AD85400AA5EA1 /* VMView.swift */,
 				CCD1A9B4268C34AD001E87AC /* VMUIView.swift */,
+				01B37757281D772700BB9111 /* VMControlOverlay.swift */,
 				CC4E3647268AE5A800AA5EA1 /* VMInstallView.swift */,
 				01B37759281F06F900BB9111 /* VMSettingsView.swift */,
 				CC4E363D268AD76000AA5EA1 /* VMDocument.swift */,
@@ -167,6 +170,7 @@
 				CC4E363E268AD76000AA5EA1 /* VMDocument.swift in Sources */,
 				01B3775A281F06F900BB9111 /* VMSettingsView.swift in Sources */,
 				CC4E3646268ADC6800AA5EA1 /* VMInstance.swift in Sources */,
+				01B37758281D772700BB9111 /* VMControlOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

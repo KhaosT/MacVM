@@ -11,7 +11,7 @@ import UniformTypeIdentifiers
 struct VMInstallView: View {
     
     var fileURL: URL?
-    var document: VMDocument
+    @ObservedObject var document: VMDocument
     
     @Environment(\.undoManager) var undoManager
     @ObservedObject var state: VMInstallationState
