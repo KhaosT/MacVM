@@ -210,7 +210,7 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
         let networkDevice = VZVirtioNetworkDeviceConfiguration()
         networkDevice.attachment = VZNATNetworkDeviceAttachment()
         
-        let heightOfToolbar = 98.0
+        let heightOfToolbar = 0.0
         let graphics = VZMacGraphicsDeviceConfiguration()
         graphics.displays = NSScreen.screens.count > 0 ? NSScreen.screens.map {
             VZMacGraphicsDisplayConfiguration(

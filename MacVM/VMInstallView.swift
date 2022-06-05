@@ -11,33 +11,14 @@ import UniformTypeIdentifiers
 struct VMInstallView: View {
     
     var fileURL: URL?
-    var document: VMDocument
+    @ObservedObject var document: VMDocument
     
     @Environment(\.undoManager) var undoManager
     @ObservedObject var state: VMInstallationState
         
-    @State var cpuCount: Int = 2
-    @State var memorySize: Int = 2
-    @State var diskSize: String = "32"
-    
-    @State var presentFileSelector = false
-    @State var skipInstallation = false
-    @State var ipswURL: URL?
-    
-    let availableMemoryOptions: [Int] = {
-        let baseUnit = 1024 * 1024 * 1024 // GB
-        let availableMemory = Int(ProcessInfo.processInfo.physicalMemory)
-        
-        var availableOptions: [Int] = []
-        var memorySize = 2
-        
-        while memorySize * baseUnit <= availableMemory {
-            availableOptions.append(memorySize)
-            memorySize += 2
-        }
-        
-        return availableOptions
-    }()
+    @State private var presentFileSelector = false
+    @State private var skipInstallation = false
+    @State private var ipswURL: URL?
     
     var body: some View {
         if let fileURL = fileURL {
@@ -94,38 +75,11 @@ struct VMInstallView: View {
                 .padding()
             }
         } else {
-            Form {
-                Section {
-                    Picker("CPU Count", selection: $cpuCount) {
-                        ForEach(1...ProcessInfo.processInfo.processorCount, id: \.self) { count in
-                            Text("\(count)")
-                        }
-                    }
-                    Picker("Memory Size", selection: $memorySize) {
-                        ForEach(availableMemoryOptions, id: \.self) { size in
-                            Text("\(size) GB")
-                        }
-                    }
-                    TextField("Disk Size (GB)", text: $diskSize)
-                }
-                
-                Section {
-                    Text("Save to continue...")
-                }
+            VStack {
+                VMSettingsView(content: $document.content)
+                Text("Save to continue...")
             }
             .padding()
-            .onChange(of: cpuCount) { newValue in
-                document.content.cpuCount = newValue
-                save()
-            }
-            .onChange(of: memorySize) { newValue in
-                document.content.memorySize = UInt64(newValue) * 1024 * 1024 * 1024
-                save()
-            }
-            .onChange(of: diskSize) { newValue in
-                document.content.diskSize = UInt64(newValue) ?? 32
-                save()
-            }
         }
     }
     
