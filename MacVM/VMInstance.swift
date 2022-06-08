@@ -212,7 +212,7 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
         
         let heightOfToolbar = 0.0
         let graphics = VZMacGraphicsDeviceConfiguration()
-        graphics.displays = NSScreen.screens.count > 0 ? NSScreen.screens.map {
+        graphics.displays = NSScreen.screens.count > 0 && NSScreen.screens.count < 2 ? NSScreen.screens.map {
             VZMacGraphicsDisplayConfiguration(
                 widthInPixels: Int($0.frame.size.width * $0.backingScaleFactor),
                 heightInPixels: Int(($0.frame.size.height - heightOfToolbar) * $0.backingScaleFactor),
