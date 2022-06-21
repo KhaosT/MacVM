@@ -174,7 +174,32 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
             
             let vm = VZVirtualMachine(configuration: configuration, queue: .main)
             vm.delegate = self
-            
+
+#if swift(>=5.7)
+            if #available(macOS 13.0, *) {
+                let options = VZMacOSVirtualMachineStartOptions()
+                options.startUpFromMacOSRecovery = document?.content.bootFromRecovery ?? false
+
+                vm.start(options: options) { [weak self] error in
+                    if let error = error {
+                        NSLog("Error: \(error)")
+                    } else {
+                        self?.document?.isRunning = true
+                        NSLog("Success")
+                    }
+                }
+            } else {
+                vm.start { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.document?.isRunning = true
+                        NSLog("Success")
+                    case .failure(let error):
+                        NSLog("Error: \(error)")
+                    }
+                }
+            }
+#else
             vm.start { [weak self] result in
                 switch result {
                 case .success:
@@ -184,7 +209,8 @@ class VMInstance: NSObject, VZVirtualMachineDelegate {
                     NSLog("Error: \(error)")
                 }
             }
-            
+#endif
+
             self.virtualMachine = vm
         } catch {
             NSLog("Error: \(error)")

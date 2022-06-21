@@ -12,6 +12,7 @@ struct VMSettingsView: View {
     
     @State private var memorySize: UInt64
     @State private var diskSize: String
+    @State private var bootFromRecovery: Bool
     
     private static let memoryUnit: UInt64 = 1024 * 1024 * 1024
     
@@ -19,6 +20,7 @@ struct VMSettingsView: View {
         self._content = content
         self.memorySize = content.memorySize.wrappedValue / Self.memoryUnit
         self.diskSize = "\(content.diskSize.wrappedValue)"
+        self.bootFromRecovery = content.bootFromRecovery.wrappedValue
     }
 
     private let availableMemoryOptions: [UInt64] = {
@@ -50,6 +52,12 @@ struct VMSettingsView: View {
                 }
                 TextField("Disk Size (GB)", text: $diskSize)
                     .disabled(content.installed)
+#if swift(>=5.7)
+                if #available(macOS 13.0, *) {
+                    Toggle("Boot from Recovery", isOn: $bootFromRecovery)
+                        .toggleStyle(.checkbox)
+                }
+#endif
             }
         }
         .onChange(of: memorySize) { newValue in
@@ -59,6 +67,9 @@ struct VMSettingsView: View {
             if let intValue = UInt64(newValue) {
                 content.diskSize = intValue
             }
+        }
+        .onChange(of: bootFromRecovery) { newValue in
+            content.bootFromRecovery = newValue
         }
     }
 }
